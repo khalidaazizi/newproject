@@ -1,5 +1,5 @@
 <?php
-// use App\Http\Controller\PostController;
+// use App\Http\Controller\SliderController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -73,4 +73,4 @@ route::get('/slider/{id}',function($id){
     return view('slider',compact('id','data'));
 });
 
-Route::get('/slider',[AboutController::class,'index']);
+Route::get('/slider',[SliderController::class,'index']);
