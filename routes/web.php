@@ -1,5 +1,7 @@
 <?php
 // use App\Http\Controller\PostController;
+
+use App\Http\Controllers\AboutController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -18,12 +20,12 @@ route::get('/create',function(){
 route::get('/about/{username}/{password}',function($user,$pass){
     return  "<i>my name is $user and my password is $pass </i>  " ;
 })->name('slider.about');
-// we can enter into contact page without send value 
+// we can enter into contact page without send value
 // can be username and password  unll
 route::get('/contact/{username?}/{password?}',function($user=null,$pass=null){
     return  "<h1>my name is $user and my password is $pass </h1>  " ;
 });
-//  for username can not get numeric value  
+//  for username can not get numeric value
 route::get('/gallery/{username}/{password}',function($user,$pass){
      return  "<h1>my name is $user and my password is $pass </h1>  " ;
 })->name('slider.gallery') ->where(['username'=>'[a-zA-Z]+','password'=>'[a-zA-Z0-9]+']);
@@ -44,7 +46,7 @@ route::prefix('/admin/panel/')->group(function(){
 //  REDIRECT TO CREATE PAGE
 Route::get('login', function(){
     return "this is login";
-})->name('user'); 
+})->name('user');
 Route::redirect('login', 'slider/create', 301);
 
 
