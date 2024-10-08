@@ -2,18 +2,19 @@
 
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('welcome');
-//  });
+Route::get('/', function () {
+    return view('welcome');
+ });
 
 // route::get('/create',function(){
 //    return view('create');
 // });
 
 
-
+Route::get('/testUrl' , [TestController::class , 'test'])->name('test');
 
 
 //  get the  data from routes and  return it
@@ -75,5 +76,5 @@ use Illuminate\Support\Facades\Route;
 //     return view('slider',compact('id','data'));
 // });
 
-Route::get('/slider',[AboutController::class,'index']);
-Route::resource('/slider', SliderCotroller::class);
+// Route::get('/slider',[AboutController::class,'index']);
+Route::get('/slider', [SliderController::class,'index'])->name('slider');
