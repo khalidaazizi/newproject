@@ -52,13 +52,14 @@ this is slider page
           <h1>{{$data[$i]}}</h1>       error
 
       @endfor --}}
-      @forelse ($data as $items )
+     
+      {{-- @forelse ($data as $items )
           <h1>
            {{ $items}}
           </h1>
       @empty
          <h1> there is no data </h1>
-      @endforelse
+      @endforelse --}}
 
     {{--<h1>slider </h1> --}}
      {{--  send value to other page   --}}

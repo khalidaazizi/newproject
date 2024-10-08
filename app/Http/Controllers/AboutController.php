@@ -12,7 +12,9 @@ class AboutController extends Controller
      */
     public function index()
     {
-        return view( '/slider');
+   
+    $data =['efat','azizi', '12','google.com'];
+    return view('slider',compact('data'));
     }
 
     /**
@@ -20,7 +22,7 @@ class AboutController extends Controller
      */
     public function create()
     {
-        //
+        return '<h1> hiii</1h>';
     }
 
     /**
@@ -28,7 +30,7 @@ class AboutController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -36,7 +38,7 @@ class AboutController extends Controller
      */
     public function show(rc $rc)
     {
-        //
+        return '<h1> hq $id</1h>';
     }
 
     /**
@@ -44,7 +46,7 @@ class AboutController extends Controller
      */
     public function edit(rc $rc)
     {
-        //
+        
     }
 
     /**
@@ -52,7 +54,7 @@ class AboutController extends Controller
      */
     public function update(Request $request, rc $rc)
     {
-        //
+       
     }
 
     /**
@@ -60,6 +62,6 @@ class AboutController extends Controller
      */
     public function destroy(rc $rc)
     {
-        //
+      
     }
 }

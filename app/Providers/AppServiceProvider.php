@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,7 +20,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // $route->pattern('username', '[a-z0-9]+');
-        // $route->pattern('password', '[0-9]+');
+        Schema::defaultStringLength(191);
+
+
     }
 }
