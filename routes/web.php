@@ -76,4 +76,4 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/slider',[AboutController::class,'index']);
-Route::resource('/slider', SliderCotroller::class);
+// Route::resource('/slider', SliderCotroller::class);
