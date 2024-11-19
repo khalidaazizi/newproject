@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Slider;
 use Illuminate\Http\Request;
 
 class SliderController extends Controller
@@ -11,7 +11,8 @@ class SliderController extends Controller
      */
     public function index()
     {
-        return view('/slider');
+        $data = Slider::all();
+        return view('slider.index', compact('data'));
     }
 
     /**
@@ -19,7 +20,7 @@ class SliderController extends Controller
      */
     public function create()
     {
-        //
+        return view('slider.create');
     }
 
     /**
@@ -27,7 +28,25 @@ class SliderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if($request->hasFile('image')){
+            $image = time().'.'.$request->image->extension();
+            $request->image->move('images/slider',$image);
+        }
+    //    $file = $request->file('image');
+    //    $image ='';
+
+    //    if (! empty($file)){
+    //       $image = md5(time()).'.'.$file->getClientOriginalName();
+    //       $file->move('images/slider',$image);
+    //    }
+
+
+        slider::create([
+            'title'=>$request ->title,
+            'description' =>$request ->description,
+            'image'=>$request->$image,
+        ]);
+        return redirect()->route('slider.index');
     }
 
     /**
@@ -35,15 +54,16 @@ class SliderController extends Controller
      */
     public function show(string $id)
     {
-        //
+       return $id;
     }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
-    {
-        //
+    {   $slider=slider::findOrfail( $id);
+        
+        return view('slider.edit',compact('slider'));
     }
 
     /**
@@ -51,14 +71,23 @@ class SliderController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        slider::where('id',$id)->update([
+            'title'=> $request-> title,
+            'description'=> $request-> description,
+
+        ]);
+         
+        return redirect()->route('slider.index');  
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        //
+    public function destroy( string $id)
+    { 
+    //    $slider= slider::findOrfail($id);
+    //    return $slider; 
+       slider::destroy($id);
+       return redirect()->route('slider.index');
     }
 }
