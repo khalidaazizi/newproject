@@ -9,15 +9,19 @@
     table{
        text-align: center;
     }
-    /* td img {
-        width: 12%;
-    } */
+    td img {
+        width: 130px;
+ 
+    } 
 </style>
 @endsection
 @section('contant')
-
+@php
+    //  use Illuminate\Support\str;
+@endphp
 
 <h1>Slider Data</h1>
+
 <section class="container">
     <div class="row">
         <table class='table'>
@@ -32,21 +36,22 @@
                 </tr>
             </thead>
             <tbody>
-                    @forelse ($data as $items)
+                    @forelse ($data as $item)
                         <tr>
-                           <td>{{$items->id}}</td> 
-                           <td>{{$items->title}}</td> 
-                           <td>{{$items->description}}</td> 
-                           <td><img src="{{asset('images/slider/'.$items->image)}}" alt="image"> </td>
+                           <td>{{$item->id}}</td> 
+                           <td>{{$item->title}}</td> 
+                           <td>{{Illuminate\Support\str::limit($item->description,10)}}</td> 
+                           {{-- <td><img src="{{asset('images/slider/'.$item->image)}}" alt="image"> </td> --}}
+                           <td><img src="{{$item->image}}" alt="image"></td>
                            <td>
-                                <form action="{{route('slider.destroy', $items->id)}}" method="POST">
+                                <form action="{{route('slider.destroy', $item->id)}}" method="POST">
                                     @csrf
                                     @method('delete')
                                     <input type="submit" class="btn btn-danger" value="delete">
                                 </form>
                            </td> 
                            <td>
-                             <a href="{{route('slider.edit',['id'=> $items->id])}}" class="btn btn-info">edit</a>
+                             <a href="{{route('slider.edit',['id'=> $item->id])}}" class="btn btn-info">edit</a>
                            </td>
                          
                         </tr>
@@ -56,8 +61,11 @@
                         </tr>
                     @endforelse
             </tbody>
+            
         </table>
-         <a href="{{route('slider.create')}}" class="btn btn-success mt-5" cols="3" rows="2">create data</a>     
+        {{$data->links()}}
+         <a href="{{route('slider.create')}}" class="btn btn-success mt-5" cols="3" rows="2">create data</a>    
+         <a href="{{route('slider.trash')}}" class="btn btn-danger mt-5" cols="3" rows="2">trash</a>  
     </div>
 </section>
 

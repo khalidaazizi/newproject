@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title','trash')
+@section('title','edit')
 @section('css')
 <style>
     h1{
@@ -25,16 +25,24 @@
         @csrf
         @method('PUT')
             <label for="title">title</label>
-            <input type="text" id="title" name="title" value="{{$slider->title}}" class="form-control" placeholder="enter title">
-
+            <input type="text" id="title" name="title" value="{{$slider->title}}"  class="form-control" placeholder="enter title">
+             @error('title')
+                 <p class="text-danger">{{$message}}</p>
+             @enderror
             <label for="description">description</label>
             <textarea name="description" id="description" cols="30" rows="10"  placeholder="enter description" class="form-control">{{$slider->description}}</textarea>
-
+            @error('title')
+                 <p class="text-danger">{{$message}}</p>
+            @enderror
             <label for="image">image</label>
-            <input type="file" id="image" name="image" value="{{$slider->description}}"  class="form-control">
-
+            <input type="file" id="image" name="image" value="{{$slider->image}}"  class="form-control">
+            @error('title')
+                 <p class="text-danger">{{$message}}</p>
+            @enderror
             <input type="submit" value="update"  class="btn btn-success mt-2 ">
-        </form>  
+            
+        </form> 
+        <a href="{{route('slider.index')}}" class="btn btn-info mt-5">back</a> 
     </div>
 </section>
 
