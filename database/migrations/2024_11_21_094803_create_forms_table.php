@@ -22,11 +22,11 @@ return new class extends Migration
             $table->date('dead_day');
             $table->enum('gender',['male','female' ]);
             $table->text('address');
-            $table->text('files');
-            $table->string('image');
+            // $table->text('files');
+            // $table->string('image');
             $table->string('country');
             $table->text('experience');
-            $table->boolean('terms')->default(true);
+            $table->boolean('terms');
             $table->timestamps();
         });
     }

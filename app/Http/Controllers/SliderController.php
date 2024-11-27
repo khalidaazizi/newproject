@@ -14,7 +14,7 @@ class SliderController extends Controller
     public function index()
     {   
         $data = Slider::withoutTrashed()->paginate(5);
-        return view('slider.index', compact('data'));
+        return view('dashboard.slider.index', compact('data'));
     }
 
     /**
@@ -22,7 +22,7 @@ class SliderController extends Controller
      */
     public function create()
     {
-        return view('slider.create');
+        return view('dashboard.slider.create');
     }
 
     /**
@@ -59,7 +59,7 @@ class SliderController extends Controller
      */
     public function edit(string $id)
     {   $slider=slider::findOrfail( $id);
-        return view('slider.edit',compact('slider'));
+        return view('dashboard.slider.edit',compact('slider'));
     }
 
     /**
@@ -87,7 +87,7 @@ class SliderController extends Controller
              'image'=> $image
         ]);
          
-        return redirect()->route('slider.index');  
+        return redirect()->route('dashboard.slider.index');  
 
     }
 
@@ -103,11 +103,11 @@ class SliderController extends Controller
 
     public function trash(){
       $slider= Slider::onlyTrashed()->get();
-      return view('slider.trash',compact('slider'));
+      return view('dashboard.slider.trash',compact('slider'));
 
     }
     public function restore(string $id){
        slider::onlyTrashed()->findOrfail($id)->restore();
-       return redirect()->route('slider.trash');
+       return redirect()->route('dashboard.slider.trash');
     }
 }

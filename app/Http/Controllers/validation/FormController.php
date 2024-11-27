@@ -17,13 +17,14 @@ class FormController extends Controller
    
     public function create()
     {
-        return view('form.form');
+        return view('front.form.form');
     }
 
    
     public function store(Request $request)
     {   
          
+    
            $data = $request->validate([
             'fullName' => 'required|string',
             'age' => 'required|integer',
@@ -34,28 +35,29 @@ class FormController extends Controller
             'dead_day' => 'required|date|after:today',
             'gender' => 'required|in:male,female',
             'address' => 'required|string',
-            'files' => 'required|file|mimes:pdf,doc,docx,zip',
-            'image' => 'required|file|mimes:jpg,jpeg,png',
+            // 'files' => 'required|file|mimes:pdf,doc,docx,zip',
+            // 'image' => 'required|file|mimes:jpg,jpeg,png',
             'country' => 'required|string',
             'experience' => 'nullable|array', 
             'terms' => 'required|boolean',
         ]);
-         if ($request->hasFile('files')) {
-            $file = $request->file('files');
-            $fileName = time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('uploads/files'), $fileName);
-            $data['files'] = $fileName;
-        }
+        //  if ($request->hasFile('files')) {
+        //     $file = $request->file('files');
+        //     $fileName = time() . '.' . $file->getClientOriginalExtension();
+        //     $file->move(public_path('uploads/files'), $fileName);
+        //     $data['files'] = $fileName;
+        // }
 
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('uploads/images'), $imageName);
-            $data['image'] = $imageName;
-        }
+        // if ($request->hasFile('image')) {
+        //     $image = $request->file('image');
+        //     $imageName = time() . '.' . $image->getClientOriginalExtension();
+        //     $image->move(public_path('uploads/images'), $imageName);
+        //     $data['image'] = $imageName;
+        // }
     //    array to str
-        $data['experience'] = isset($request->experience) ? implode(',', $request->experience) : null;
-    //  
+    //   $data['experience'] = isset($request->experience) ? implode(',', $request->experience) : null; //  ...?
+
+    //  default value
         $data['terms'] = $request->has('terms') ? 1 : 0;
          
     
@@ -69,8 +71,8 @@ class FormController extends Controller
            'dead_day' =>$request ->dead_day,
             'gender' =>$request ->gender,
             'address'=>$request ->address,
-            'files' => $file,
-            'image'=> $image,
+            // 'files' => $file,
+            // 'image'=> $image,
             'country' =>$request ->country,
            'experience' =>$request ->experience,
            'terms'=>$request ->terms, 
