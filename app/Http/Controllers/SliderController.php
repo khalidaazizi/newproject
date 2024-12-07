@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Slider;
+use App\Models\dashboard\Slider;
+use Illuminate\Support\Facades\Session;
 use App\Http\Requests\createSliderRequest;
 use App\Http\Requests\updateSliderRequest;
 use Illuminate\Http\Request;
-// use Illuminate\Support\str;
 class SliderController extends Controller
 {
     /**
@@ -43,6 +43,7 @@ class SliderController extends Controller
             'image'=> $image,
 
         ]);
+        session::flash('success', 'successfully done');
         return redirect()->route('slider.index');
      }
 
@@ -81,13 +82,13 @@ class SliderController extends Controller
           }else{
             $image=$slider->image;
           }
-        slider::where('id','=',$id)->update([
+         Slider::where('id','=',$id)->update([
             'title'=> $request-> title,
             'description'=> $request-> description,
              'image'=> $image
         ]);
-         
-        return redirect()->route('dashboard.slider.index');  
+        session::flash('success', 'successfully done');
+        return redirect()->route('slider.index');  
 
     }
 
@@ -96,18 +97,28 @@ class SliderController extends Controller
      */
     public function destroy( string $id)
     { 
-   
-       slider::onlyTrashed()->findOrfail($id)->forceDelete();
-       return redirect()->route('slider.trash');
+        slider::findOrfail($id)->Delete();
+        return redirect()->route('slider.index');
+      
     }
 
     public function trash(){
       $slider= Slider::onlyTrashed()->get();
       return view('dashboard.slider.trash',compact('slider'));
-
     }
+  
     public function restore(string $id){
        slider::onlyTrashed()->findOrfail($id)->restore();
-       return redirect()->route('dashboard.slider.trash');
+        session::flash('success', 'successfully done');
+       return redirect()->route('slider.index');
+     
     }
+
+     public function delete(string $id){
+       slider::onlyTrashed()->findOrfail($id)->forceDelete();
+       session::flash('success', 'successfully done');
+       return redirect()->route('slider.trash');
+     
+    }
+
 }

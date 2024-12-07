@@ -18,12 +18,18 @@
 @section('contant')
 @php
     //  use Illuminate\Support\str;
+    use Illuminate\Support\Facades\Session;
 @endphp
 
 <h1>Slider Data</h1>
 
 <section class="container">
     <div class="row">
+        @if (session::has('success'))
+        <div class="alert alert-primary" role="alert">
+          {{session::get('success')}}
+        </div>
+        @endif
         <table class='table'>
             <thead>
                 <tr>
@@ -41,8 +47,8 @@
                            <td>{{$item->id}}</td> 
                            <td>{{$item->title}}</td> 
                            <td>{{Illuminate\Support\str::limit($item->description,10)}}</td> 
-                           {{-- <td><img src="{{asset('images/slider/'.$item->image)}}" alt="image"> </td> --}}
-                           <td><img src="{{$item->image}}" alt="image"></td>
+                           <td><img src="{{asset('images/slider/'.$item->image)}}" alt="image"> </td> 
+                           {{-- <td><img src="{{$item->image}}" alt="image"></td> --}}
                            <td>
                                 <form action="{{route('slider.destroy', $item->id)}}" method="POST">
                                     @csrf

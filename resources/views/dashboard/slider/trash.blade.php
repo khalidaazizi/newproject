@@ -18,9 +18,15 @@
 @section('contant')
 
 
+
 <h1>Slider trash </h1>
 <section class="container">
     <div class="row">
+         @if (Illuminate\Support\Facades\session::has('success'))
+            <div class="alert alert-primary" role="alert">
+            {{Illuminate\Support\Facades\session::get('success')}}
+            </div>
+        @endif
         <table class='table'>
             <thead>
                 <tr>
@@ -40,12 +46,11 @@
                            <td>{{$item->description}}</td> 
                            <td><img src="{{asset('images/slider/'.$item->image)}}" alt="image"> </td>
                            <td>
-                                <form action="{{route('slider.destroy', $item->id)}}" method="POST">
+                                <form action="{{route('slider.delete', $item->id)}}" method="POST">
                                     @csrf
                                     @method('delete')
                                     <input type="submit" class="btn btn-danger" value="delete">
                                 </form>
-                                
                            </td> 
                            <td>
                              <form action="{{route('slider.restore', $item->id)}}" method="get">
@@ -63,6 +68,6 @@
                     @endforelse
             </tbody>
         </table>
-         {{-- <a href="{{route('slider.create')}}" class="btn btn-success mt-5" cols="3" rows="2">create data</a>      --}}
+         <a href="{{route('slider.index')}}" class="btn btn-info mt-5" >index</a>     
     </div>
 </section>
