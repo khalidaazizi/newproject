@@ -44,4 +44,8 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function Post(){
+        return $this->belongsTo(User::class,"user_id");
+    }
 }

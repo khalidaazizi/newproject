@@ -1,23 +1,48 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
 use App\Http\controllers\SliderController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\front\form\FormController;
 use App\Http\Controllers\front\form\ValidationController;
 use App\Http\Controllers\front\slider\SliderController as FrontSliderController;
-use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-   
-    return 'everything is correct';
+    return view('welcome');
 });
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+}); 
+
+require __DIR__.'/auth.php'; 
+
+
+// front
 Route::get('/slider', [FrontSliderController::class,'index'])->name('slider.index');
 Route::resource('/validation', ValidationController::class)->parameters(['validation'=>'id']);
 
 
-Route::resource('dashboard/slider', SliderController::class)->parameters(['slider'=>'id']);
-Route::get('dashboard/slider/trash/data',[ SliderController::class,'trash'])->name('slider.trash');
-Route::get('dashboard/slider/restore/data/{id}',[ SliderController::class,'restore'])->name('slider.restore');
-Route::delete('dashboard/slider/delete/data/{id}',[ SliderController::class,'delete'])->name('slider.delete');
+
+// dashboard
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+
+Route::middleware('auth')->prefix('/dashboard/admin/')->group(function () {
+    // slider routes
+    Route::resource('slider', SliderController::class)->parameters(['slider'=>'id']);
+    Route::get('slider/trash/data',[ SliderController::class,'trash'])->name('slider.trash');
+    Route::get('slider/restore/data/{id}',[ SliderController::class,'restore'])->name('slider.restore');
+    Route::delete('slider/delete/data/{id}',[ SliderController::class,'delete'])->name('slider.delete');
+    // post routes
+    Route::resource('post', PostController::class)->parameters(['post'=>'id']);
+});
 
  
-// Route::resource('/form', FormController::class)->parameters(['form'=>'id']);
+
+ 

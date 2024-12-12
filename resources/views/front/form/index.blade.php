@@ -180,7 +180,7 @@
                 <!-- experience -->
                 <div class="mb-3">
                     <label for="experience" class="form-label">تحربه کاری</label>
-                    <select class="form-select border" name="experience []" id="experience"  multiple required>
+                    <select class="form-select border" name="experience[]" id="experience" multiple required>
                         <option selected> در چند کشور  سفر کاری داشته اید   </option>
                         <option value="iran">ایران</option>
                         <option value="afghanistan">افغانستان</option>

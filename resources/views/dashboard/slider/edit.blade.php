@@ -6,11 +6,9 @@
         text-align: center;
         color:rgb(8, 37, 255)
     }
-    table{
-       text-align: center;
-    }
-    td img {
-        width: 12%;
+   
+     img {
+        width: 20%;
     }
     input[type=submit]{
           float: right;
@@ -29,18 +27,25 @@
              @error('title')
                  <p class="text-danger">{{$message}}</p>
              @enderror
+
             <label for="description">description</label>
             <textarea name="description" id="description" cols="30" rows="10"  placeholder="enter description" class="form-control">{{$slider->description}}</textarea>
-            @error('title')
+            @error('description')
                  <p class="text-danger">{{$message}}</p>
             @enderror
-            <label for="image">image</label>
-            <input type="file" id="image" name="image" value="{{$slider->image}}"  class="form-control">
-            @error('title')
-                 <p class="text-danger">{{$message}}</p>
-            @enderror
-            <input type="submit" value="update"  class="btn btn-success mt-2 ">
+
+            <label for="image" class="d-block mt-3">image</label>
+            {{-- @if ($slider->image ==)
+            @else
             
+            @endif --}}
+            <img src="{{asset('images/slider/'. $slider->image)}}" alt="img" class="my-2"> 
+            <input type="file" id="image" name="image" value="{{$slider->image}}"  class="form-control">
+            @error('image')
+                 <p class="text-danger">{{$message}}</p>
+            @enderror
+
+            <input type="submit" value="update"  class="btn btn-success mt-2 ">
         </form> 
         <a href="{{route('slider.index')}}" class="btn btn-info mt-5">back</a> 
     </div>
