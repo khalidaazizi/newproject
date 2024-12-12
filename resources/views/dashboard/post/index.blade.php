@@ -47,8 +47,8 @@
                            <td>{{$item->id}}</td> 
                            <td>{{$item->name}}</td> 
                            <td>{{$item->email}}</td> 
-                           <td><img src="{{asset('images/post/'.$item->image)}}" alt="image"></td> 
-                           {{-- <td><img src="{{$item->image}}" alt="image"></td> --}}
+                           {{-- <td><img src="{{asset('images/post/'.$item->image)}}" alt="image"></td>  --}}
+                           
                            {{-- <td>
                                 <form action="{{route('slider.destroy', $item->id)}}" method="POST">
                                     @csrf
