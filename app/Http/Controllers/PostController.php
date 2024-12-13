@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\dashboard\Post;
+use Illuminate\Support\Facades\Session;
+use  App\Models\dashboard\Post;
 use App\Models\User;
 class PostController extends Controller
 {
@@ -12,10 +13,9 @@ class PostController extends Controller
      */
     public function index()
     {   
-        $data = User::with('Post')->get();
-        return $data;
-        
-        // return view('dashboard.post.index',compact('data'));
+      
+        $userData = Post::with('User:id,name')->paginate(10);
+        return view('dashboard.post.index',compact('userData'));
     }
 
     /**
@@ -43,8 +43,8 @@ class PostController extends Controller
             'image'=> $image,
             'user_id'=> auth()->id()
         ]);
-        // session::flash('success', 'successfully done');
-        return redirect()->route('post.create');
+        session::flash('success', 'successfully done');
+        return redirect()->route('post.index');
     }
 
     /**
@@ -60,7 +60,9 @@ class PostController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $userData = Post::findOrfail($id);
+        // return  $userData;
+        return view('dashboard.post.edit',compact('userData'));
     }
 
     /**
@@ -68,7 +70,29 @@ class PostController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $userData = Post::findOrfail($id);
+
+          if($request->hasFile('image')){
+
+            if(!empty($userData->image) && file_exists('images/post/'.$userData->image)){
+                 if (is_file('images/post/' . $userData->image)){
+                     unlink('images/post/' . $userData->image);
+                }
+            }
+            $image = $request->file('image')->getClientOriginalName();
+            $image = time().'.'.$image;
+            $path = $request->file('image')->move('images/post',$image);
+       
+          }else{
+            $image=$userData->image;
+          }
+         Post::where('id','=',$id)->update([
+            'title'=> $request-> title,
+            'description'=> $request-> description,
+            'image'=> $image,
+        ]);
+        session::flash('success', 'successfully done');
+        return redirect()->route('post.index');  
     }
 
     /**
@@ -76,6 +100,27 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Post::findOrfail($id)->Delete();
+        return redirect()->route('post.index');
+    }
+
+    public function trash(){
+       $post= Post::onlyTrashed()->get();
+       return view('dashboard.post.trash',compact('post'));
+    }
+  
+    public function restore(string $id){
+        Post::onlyTrashed()->findOrfail($id)->restore();
+        session::flash('success', 'successfully done');
+        return redirect()->route('post.trash');
+     
+    }
+
+     public function delete(string $id){
+       Post::onlyTrashed()->findOrfail($id)->forceDelete();
+       session::flash('success', 'successfully done');
+       return redirect()->route('post.trash');
+     
     }
 }
+ 

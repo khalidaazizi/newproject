@@ -10,7 +10,7 @@
             justify-content: flex-end;
         }
         h1{
-           transform: translate(38%, 124%);
+           margin: 250px 500px;
            color: red;
         }
     </style>

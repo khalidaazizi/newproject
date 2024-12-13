@@ -13,6 +13,7 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
         <style>
             .navbar-nav{
                 visibility: visible;
@@ -46,15 +47,11 @@
                                         <li class="nav-item">
                                           <a class="nav-link" href="{{route('slider.index')}}">slider</a>
                                         </li>
-                                        <li class="nav-item">
-                                          <a class="nav-link" href="{{route('validation.create')}}">validation</a>
-                                        </li>
+                                        
                                         <li class="nav-item">
                                           <a class="nav-link" href="{{route('post.index')}}">post</a>
                                         </li>
-                                        <li class="nav-item">
-                                          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                                        </li>
+                                        
                                     </ul>
                                 </div>
                             </div>

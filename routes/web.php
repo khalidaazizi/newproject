@@ -10,7 +10,7 @@ use App\Http\Controllers\front\slider\SliderController as FrontSliderController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -41,6 +41,9 @@ Route::middleware('auth')->prefix('/dashboard/admin/')->group(function () {
     Route::delete('slider/delete/data/{id}',[ SliderController::class,'delete'])->name('slider.delete');
     // post routes
     Route::resource('post', PostController::class)->parameters(['post'=>'id']);
+    Route::get('post/trash/data',[ PostController::class,'trash'])->name('post.trash');
+    Route::get('post/restore/data/{id}',[ PostController::class,'restore'])->name('post.restore');
+    Route::delete('post/delete/data/{id}',[ PostController::class,'delete'])->name('post.delete');
 });
 
  

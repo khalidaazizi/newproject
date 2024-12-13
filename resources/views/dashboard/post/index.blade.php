@@ -3,6 +3,7 @@
 @section('css')
 <style>
     h1{
+        margin: 40px  0  ;
         text-align: center;
         color:rgb(8, 37, 255)
     }
@@ -34,30 +35,33 @@
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>name</th>
-                    <th>email</th>
-                    <th >psot</th>
-                    {{-- <th >delete</th> --}}
-                    {{-- <th >edit</th> --}}
+                    <th>title</th>
+                    <th>description</th>
+                    <th>image</th>
+                    <th >user_id</th>
+                    <th >user name</th>
+                    <th >delete</th>
+                    <th >edit</th>
                 </tr>
             </thead>
             <tbody>
-                    @forelse ($data as $item)
+                    @forelse ($userData as $items)
                         <tr>
-                           <td>{{$item->id}}</td> 
-                           <td>{{$item->name}}</td> 
-                           <td>{{$item->email}}</td> 
-                           {{-- <td><img src="{{asset('images/post/'.$item->image)}}" alt="image"></td>  --}}
-                           
-                           {{-- <td>
-                                <form action="{{route('slider.destroy', $item->id)}}" method="POST">
+                           <td >{{$items->id}}</td> 
+                           <td >{{$items->title}}</td> 
+                           <td >{{$items->description}}</td>
+                           <td ><img src="{{asset('images/post/'.$items->image)}}" alt="image" style="width: 50px; height: 50px;"></td>
+                           <td>{{$items->user_id}}</td>
+                           <td>{{$items->user->name}}</td>
+                           <td>
+                                <form action="{{route('post.destroy', $items->id)}}" method="POST">
                                     @csrf
                                     @method('delete')
                                     <input type="submit" class="btn btn-danger" value="delete">
                                 </form>
-                           </td>  --}}
+                           </td> 
                            <td>
-                             {{-- <a href="{{route('slider.edit',['id'=> $item->id])}}" class="btn btn-info">edit</a> --}}
+                             <a href="{{route('post.edit',['id'=> $items->id])}}" class="btn btn-info">edit</a>
                            </td>
                          
                         </tr>
@@ -69,9 +73,9 @@
             </tbody>
             
         </table>
-        {{-- {{$data->links()}} --}}
-         {{-- <a href="{{route('post.create')}}" class="btn btn-success mt-5" cols="3" rows="2">create data</a>     --}}
-         {{-- <a href="{{route('slider.trash')}}" class="btn btn-danger mt-5" cols="3" rows="2">trash</a>   --}}
+        {{$userData->links()}}
+         <a href="{{route('post.create')}}" class="btn btn-success mt-5" cols="3" rows="2">create data</a>    
+         <a href="{{route('post.trash')}}" class="btn btn-danger mt-5" cols="3" rows="2">trash</a>  
     </div>
 </section>
 
