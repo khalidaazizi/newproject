@@ -1,0 +1,117 @@
+@import "_navbar.css";
+@import "_carousel.css";
+@import "_ banner.css";
+@import "_categories.css";
+@import "_mobile-bottom-navbar.css";
+@import "_products.css";
+@import "_offers.css";
+@import "_best-products.css";
+@import "_slider products.css";
+@import "_special-products.css";
+@import "_daliy-discounts.css";
+@import "_footer.css";
+
+/* general style */
+*,
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  direction: rtl;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f4f4f9;
+  color: var(--text-color);
+}
+
+a,
+a:hover {
+  text-decoration: none;
+}
+li,
+ol,
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+p {
+  margin: 0;
+}
+
+.produtcts-title {
+  text-align: center;
+  font-size:34px;
+  font-weight: 500;
+  margin-bottom: 39px;
+  margin-top: 76px;
+  color:var(--title-color);
+}
+
+:root {
+  --btn-bg-color: #ff8585;
+  --btn-bg-hover-color: #f37676;
+  --slider-bg-color: #fbfafa;
+  --title-color: #000000;
+  --text-color: #272727;
+  --btn-link-color:  #1c1c1c;
+  --text-size: 16px;
+
+}
+
+a.button {
+  background-color: var(--btn-bg-color);
+  border: 1px solid var(--btn-bg-color);
+  border-radius: 6px;
+  color:var(--btn-link-color);
+  padding: 5px 13px 8px 13px;
+  transition: all 0.09s ease;
+}
+
+a.button:hover {
+  background-color:var(--btn-bg-hover-color);
+  border-color:var(--btn-bg-hover-color);
+}
+
+div#back-to-top{
+  /* z-index: 999; */
+  /* position: fixed; */
+  /* background-color: #ff8585;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  line-height: 46px;
+  text-align: center;
+  font-size: larger;
+  margin: 10px 20px 0 0 ;
+
+ display: none; */
+
+  position:fixed;
+  right: 15px;
+  bottom: 15px;
+  z-index: 996;
+  width: 46px;
+  height: 46px;
+  background-color: #ff8585;
+  border-radius: 50%;
+  line-height: 46px;
+  text-align: center;
+  font-size: larger;
+  display: none;
+  transition: all 0.4s;
+}
+div#back-to-top:hover{
+  background-color: #1c1c1c;
+}
+div#back-to-top i{
+  color: #ffff;
+  transition: all .3s linear;
+}
+div#back-to-top:hover i{
+  transform: scale(1.09);
+}

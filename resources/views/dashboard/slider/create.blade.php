@@ -18,7 +18,7 @@
 </style>
 @endsection
 @section('contant')
-<h1> create</h1>
+<h1>slider create</h1>
 <section class="container">
     <div class="row">
        <form action="{{route('slider.store')}}" method="POST" enctype="multipart/form-data" class="form-group" >

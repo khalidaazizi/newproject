@@ -72,8 +72,8 @@ class SliderController extends Controller
             $image ='';
           if($request->hasFile('image')){
 
-            if(file_exists('images/slider'.$slider->image)){
-               unlink('images/slider'.$slider->image);
+           if(file_exists('images/slider/'.$slider->image)){
+              unlink('images/slider/'.$slider->image);
             }
             $image = $request->file('image')->getClientOriginalName();
             $image = time().'.'.$image;
@@ -101,12 +101,13 @@ class SliderController extends Controller
         return redirect()->route('slider.index');
       
     }
-
+    // trash page
     public function trash(){
       $slider= Slider::onlyTrashed()->get();
       return view('dashboard.slider.trash',compact('slider'));
     }
   
+    // restore
     public function restore(string $id){
        slider::onlyTrashed()->findOrfail($id)->restore();
         session::flash('success', 'successfully done');
@@ -114,11 +115,17 @@ class SliderController extends Controller
      
     }
 
-     public function delete(string $id){
-       slider::onlyTrashed()->findOrfail($id)->forceDelete();
-       session::flash('success', 'successfully done');
-       return redirect()->route('slider.trash');
-     
-    }
+     // forceDelete
+    public function delete(string $id){    
+        $slider = Slider::onlyTrashed()->findOrFail($id);
+        $imagePath = 'images/slider/' . $slider->image;
+        if (!empty($slider->image) && file_exists($imagePath)) {
+            unlink($imagePath);
+        }
+        $slider->forceDelete();
+        session()->flash('success', 'Successfully done');
+        return redirect()->route('slider.trash');
+     }
+
 
 }

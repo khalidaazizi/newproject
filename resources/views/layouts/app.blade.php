@@ -10,9 +10,10 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
+        
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <link rel="stylesheet" href="{{asset('assets/dest/css/bootstrap.min.css')}}"> 
 
         <style>
             .navbar-nav{
@@ -20,7 +21,31 @@
                 display: flex;
             }
             .nav-item{
-                padding: 10px
+                padding: 5px;
+                margin: 29px 0;
+                margin-top: 23px;
+            }
+            .mm{
+                margin-top: -25px !important;
+                margin: 0;
+            }
+            .nav-item a{
+                font-size: 20px;
+                transition: all .3s ease-in
+            }
+
+            .nav-item a:hover{
+                border-bottom-width: 3px; 
+                border-color: black;
+
+
+            }
+            .border-indigo-400 {
+            --tw-border-opacity: 0; 
+            border-color:unset; 
+            }
+            .border-b-2 {
+                border-bottom-width: 0; 
             }
   
         </style>
@@ -30,41 +55,21 @@
             @include('layouts.navigation')
 
             <!-- Page Heading -->
-            {{-- @isset($header) --}}
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                       <nav class="navbar navbar-expand-lg bg-body-tertiary">
-                            <div class="container-fluid">
-                                
-                                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                                </button>
-                                <div class="collapse navbar-collapse" id="navbarNav">
-                                    <ul class="navbar-nav" >
-                                        <li class="nav-item">
-                                        {{-- <a class="nav-link active" aria-current="page" href="#">Home </a> --}}
-                                        </li>
-                                        <li class="nav-item">
-                                          <a class="nav-link" href="{{route('slider.index')}}">slider</a>
-                                        </li>
-                                        
-                                        <li class="nav-item">
-                                          <a class="nav-link" href="{{route('post.index')}}">post</a>
-                                        </li>
-                                        
-                                    </ul>
-                                </div>
-                            </div>
-                        </nav>
-                    </div>
-                </header>
-            {{-- @endisset --}}
-           
+                  @if (isset($header))
+                    <header class="bg-white shadow">
+                        <div class="max-w-7xl mx-auto py-6 px-1 sm:px-1 lg:px-8">
+                            {{ $header }}
+                        </div>
+                    </header>
+                @endif 
+
+          
 
             <!-- Page Content -->
             <main>
                 {{ $slot }}
             </main>
+             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         </div>
     </body>
 </html>

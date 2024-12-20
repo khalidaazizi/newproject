@@ -38,13 +38,20 @@ class ValidationController extends Controller
              $path = $request->file('files')->move('file/files',$file);
         }
 
+        // if ($request->file()) {
+        // // $fileName = time().'_'.$request->file->getClientOriginalName();
+        //      $fileName = $request->file('files')->getClientOriginalName();
+        //      $fileName = time().'_'.$fileName;
+        //      $filePath = $request->file('files')->storeAs('uploads', $fileName, 'public');
+        // }
+
         if($request->hasFile('image')){
             $image = $request->file('image')->getClientOriginalName();
             $image = time().'.'.$image;
             $path = $request->file('image')->move('images/slider',$image);
         
         }
-
+        
         validation::create([
             'fullName'=> $request ->fullName,
             'age' => $request ->age,
@@ -55,7 +62,7 @@ class ValidationController extends Controller
             'dead_day' =>$request ->dead_day,
             'gender' =>$request ->gender,
             'address' =>$request ->address,
-            'files' =>$file,
+            'files' =>$filePath,
             'image' =>$image,
             'country' =>$request ->country,
             'experience' =>$request ->experience,

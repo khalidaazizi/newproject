@@ -11,11 +11,9 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {   
-      
-        $userData = Post::with('User:id,name')->paginate(10);
-        return view('dashboard.post.index',compact('userData'));
+    public function index() {    
+        $postData = Post::with('User:id,name')->paginate(10);
+        return view('dashboard.post.index',compact('postData'));
     }
 
     /**
@@ -32,15 +30,23 @@ class PostController extends Controller
     public function store(Request $request)
     {  
     
-       if($request->hasFile('image')){
-           $image= $request->file('image')->getClientOriginalName();
-           $image = time(). '.'.$image; 
-           $path = $request->file('image')->move('images/post/',$image);
+       if($request->hasFile('first_image')){
+           $first_image= $request->file('first_image')->getClientOriginalName();
+           $first_image = time(). '.'.$first_image; 
+           $path = $request->file('first_image')->move('images/post/',$first_image);
+       }
+       
+       if($request->hasFile('second_image')){
+           $second_image= $request->file('second_image')->getClientOriginalName();
+           $second_image = time(). '.'.$second_image; 
+           $path = $request->file('second_image')->move('images/post/',$second_image);
        }
         Post::create([
             'title'=>$request->title,
             'description' =>$request->description,
-            'image'=> $image,
+            'price' =>$request->price,
+            'first_image'=> $first_image,
+            'second_image'=> $second_image,
             'user_id'=> auth()->id()
         ]);
         session::flash('success', 'successfully done');
@@ -60,9 +66,9 @@ class PostController extends Controller
      */
     public function edit(string $id)
     {
-        $userData = Post::findOrfail($id);
+        $postData = Post::findOrfail($id);
         // return  $userData;
-        return view('dashboard.post.edit',compact('userData'));
+        return view('dashboard.post.edit',compact('postData'));
     }
 
     /**
@@ -70,26 +76,44 @@ class PostController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $userData = Post::findOrfail($id);
+        $postData = Post::findOrfail($id);
+// for first_image 
+          if($request->hasFile('first_image')){
 
-          if($request->hasFile('image')){
-
-            if(!empty($userData->image) && file_exists('images/post/'.$userData->image)){
-                 if (is_file('images/post/' . $userData->image)){
-                     unlink('images/post/' . $userData->image);
+            if(!empty($postData->first_image) && file_exists('images/post/'.$postData->first_image)){
+                 if (is_file('images/post/' . $postData->first_image)){
+                     unlink('images/post/' . $postData->first_image);
                 }
             }
-            $image = $request->file('image')->getClientOriginalName();
-            $image = time().'.'.$image;
-            $path = $request->file('image')->move('images/post',$image);
+            $first_image = $request->file('first_image')->getClientOriginalName();
+            $first_image = time().'.'.$first_image;
+            $path = $request->file('first_image')->move('images/post',$first_image);
        
           }else{
-            $image=$userData->image;
+            $first_image=$postData->first_image;
           }
+// for  second_image
+        if($request->hasFile('second_image')){
+
+            if(!empty($userData->second_image) && file_exists('images/post/'.$userData->second_image)){
+                 if (is_file('images/post/' . $userData->second_image)){
+                     unlink('images/post/' . $userData->second_image);
+                }
+            }
+            $second_image = $request->file('second_image')->getClientOriginalName();
+            $second_image = time().'.'.$second_image;
+            $path = $request->file('second_image')->move('images/post',$second_image);
+       
+        }else{
+            $second_image=$postData->second_image;
+        }
+
          Post::where('id','=',$id)->update([
             'title'=> $request-> title,
             'description'=> $request-> description,
-            'image'=> $image,
+            'price' =>$request->price,
+            'first_image'=> $first_image,
+            'second_image'=> $second_image,
         ]);
         session::flash('success', 'successfully done');
         return redirect()->route('post.index');  
@@ -98,26 +122,36 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
+    public function destroy(string $id){
         Post::findOrfail($id)->Delete();
         return redirect()->route('post.index');
     }
 
+    // trash
     public function trash(){
        $post= Post::onlyTrashed()->get();
        return view('dashboard.post.trash',compact('post'));
     }
-  
+    // restore
     public function restore(string $id){
         Post::onlyTrashed()->findOrfail($id)->restore();
         session::flash('success', 'successfully done');
         return redirect()->route('post.trash');
      
     }
-
+    //  forceDelete
      public function delete(string $id){
-       Post::onlyTrashed()->findOrfail($id)->forceDelete();
+        $post = Post::onlyTrashed()->findOrFail($id);
+        $imagePath = 'images/post/' . $post->first_image;
+        if (!empty($post->first_image) && file_exists($imagePath)) {
+            unlink($imagePath);
+        }
+
+        $imagePath = 'images/post/' . $post->second_image;
+        if (!empty($post->second_image) && file_exists($imagePath)) {
+            unlink($imagePath);
+        }
+       $post->forceDelete();
        session::flash('success', 'successfully done');
        return redirect()->route('post.trash');
      

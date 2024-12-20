@@ -36,11 +36,25 @@
                 <p class="text-danger">{{$message}}</p>
             @enderror
 
-            <label for="image">image</label>
-            <input type="file" id="image" name="image" required class="form-control">
-            @error('image')
+            <label for="price">price</label>
+            <input type="number" id="price" name="price" class="form-control" required >
+            @error('price')
                 <p class="text-danger">{{$message}}</p>
             @enderror
+            
+            <label for="first_image">first_image</label>
+            <input type="file" id="first_image" name="first_image" required class="form-control">
+            @error('first_image')
+                <p class="text-danger">{{$message}}</p>
+            @enderror
+
+            <label for="second_image">second_image</label>
+            <input type="file" id="second_image" name="second_image" required class="form-control">
+            @error('second_image')
+                <p class="text-danger">{{$message}}</p>
+            @enderror
+
+
             <input type="submit" value="submit"  class="btn btn-success mt-2 ">
         </form>  
     </div>

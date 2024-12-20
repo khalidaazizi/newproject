@@ -4,7 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\controllers\SliderController;
 use App\Http\Controllers\PostController;
-use App\Http\Controllers\front\form\FormController;
+use App\Http\Controllers\front\post\PostControoler;
 use App\Http\Controllers\front\form\ValidationController;
 use App\Http\Controllers\front\slider\SliderController as FrontSliderController;
 
@@ -24,6 +24,8 @@ require __DIR__.'/auth.php';
 // front
 Route::get('/slider', [FrontSliderController::class,'index'])->name('slider.index');
 Route::resource('/validation', ValidationController::class)->parameters(['validation'=>'id']);
+Route::get('/posts', [App\Http\Controllers\front\post\PostControoler::class,'index'])->name('post.index');
+
 
 
 

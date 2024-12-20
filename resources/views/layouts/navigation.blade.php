@@ -3,17 +3,32 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
-                <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
-                    </a>
-                </div>
-
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                <div class="hidden  sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                       <nav  class="navbar navbar-expand-lg bg-body-tertiary">
+                            <div class="container-fluid">
+                                
+                                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                                </button>
+                                <div class="collapse navbar-collapse" id="navbarNav">
+                                    <ul class="navbar-nav" >
+                                        <li class="nav-item">
+                                        <a class="nav-link  mm " href="{{route('welcome')}}">Home </a>
+                                        </li>
+                                        <li class="nav-item">
+                                          <a class="nav-link" href="{{route('slider.index')}}">slider</a>
+                                        </li>
+                                        
+                                        <li class="nav-item">
+                                          <a class="nav-link" href="{{route('post.index')}}">post</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </nav>
+                        
                     </x-nav-link>
                 </div>
             </div>

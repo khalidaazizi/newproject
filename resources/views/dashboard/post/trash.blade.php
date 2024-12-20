@@ -33,7 +33,9 @@
                     <th>Id</th>
                     <th>Title</th>
                     <th>Description</th>
-                    <th >Image</th>
+                    <th>price</th>
+                    <th>first_image</th>
+                    <th>second_image</th>
                     <th >delete</th>
                     <th >restore</th>
                 </tr>
@@ -44,7 +46,9 @@
                            <td>{{$item->id}}</td> 
                            <td>{{$item->title}}</td> 
                            <td>{{$item->description}}</td> 
-                           <td><img src="{{asset('images/post/'.$item->image)}}" alt="image"> </td>
+                           <td >{{$item->price}}</td>
+                           <td ><img src="{{asset('images/post/'.$item->first_image)}}" alt="image 1" style="width: 50px; height: 50px;"></td>
+                           <td ><img src="{{asset('images/post/'.$item->second_image)}}" alt="image 2" style="width: 50px; height: 50px;"></td>
                            <td>
                                 <form action="{{route('post.delete', $item->id)}}" method="POST">
                                     @csrf
